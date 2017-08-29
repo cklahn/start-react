@@ -4,46 +4,27 @@ import './App.css'
 // state component
 class App extends React.Component
 {
-  constructor()
-  {
-    super();
-    this.state = {
-      err: "",
-      input: "/* add your jsx here */",
-      output: ""
-    }
-  }
-
-  update(event)
-  {
-    let code = event.target.value;
-    try {
-        this.setState({
-          output: window.Babel
-            .transform(code, {presets: ['es2015', 'react']})
-            .code,
-          err: ''
-        })
-    } catch (e) {
-      this.setState({
-        err: e.message
-      })
-    }
-  }
-
-  render()
-  {
+  render(){
     return (
-      <div>
-        <header>{this.state.err}</header>
-        <div className="container">
-          <textarea onChange={this.update.bind(this)}
-          defaultValue={this.state.input}/>
-          <pre>{this.state.output}</pre>
-        </div>
-      </div>
+      <Parent>
+        <div className="childA"></div>
+      </Parent>
     )
   }
 }
+
+class Parent extends React.Component {
+  render(){
+    // console.log(this.props.children)
+    let items = React.Children
+    //  .map(this.props.children, child => child);
+    //  .toArray(this.props.children);
+    //  .forEach(this.props.children, child => console.log(child.props.className));
+      .only(this.props.children);
+    console.log(items);
+    return null
+  }
+}
+
 
 export default App
